@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "start" : "node index"
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
     "config": "^1.17.1",
     "express": "^4.13.3",
     "lodash": "^3.10.1",
-    "log4js": "^0.6.29"
+    "log4js": "^0.6.29",
+    "nodemailer": "^1.10.0"
   },
   "devDependencies": {
     "chai": "^3.4.1",

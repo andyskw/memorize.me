@@ -33,6 +33,11 @@
       "default_lang": "en-us"
     },
     "api_key": "<INSERT_YOUR_KEY_HERE>"
+  },
+  "nodemailer": {
+    "transporter": "smtp",
+    "options": {},
+    "from": "Memorize.me <andras.ivanyi@gmail.com>"
   }
 
 }

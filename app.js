@@ -3,7 +3,10 @@ var http = require("http");
 var express = require('express');
 var bodyparser = require("body-parser");
 
+var MailRoute = require('./routes/mail');
+
 exports.startApplication = function (config, log) {
+    var mail = MailRoute(config,log);
     if (config == null) {
         throw new Error("Missing configuration, application cannot be started without config!");
     }
@@ -12,10 +15,12 @@ exports.startApplication = function (config, log) {
     }
 
     var app = express();
+    app.use(bodyparser.json());
     var router = require("express").Router();
     router.get('/monitor', (req, res)=> {
         res.send({status: 1});
     });
+    app.post('/mail', mail.post.postEmail);
 
     initApplication(config, app, router);
 
@@ -29,7 +34,7 @@ exports.startApplication = function (config, log) {
 
 function initApplication(config, app, router) {
     app.set('port', config.express.port);
-    app.use(bodyparser.json());
+
     app.options("*", router);
     app.get("*", router);
     app.put("*", router);
