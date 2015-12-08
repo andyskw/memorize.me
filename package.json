@@ -21,7 +21,8 @@
     "body-parser": "^1.14.1",
     "config": "^1.17.1",
     "express": "^4.13.3",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "log4js": "^0.6.29"
   },
   "devDependencies": {
     "chai": "^3.4.1",
