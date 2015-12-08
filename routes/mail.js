@@ -11,7 +11,7 @@ postEmail = (req, res) => {
     }
     var body = req.body;
     var email = body.email;
-    var todos = body.todos;
+    var todos = body.todos ? body.todos : [];
 
 
     var mailOptions = {
