@@ -1,3 +1,7 @@
 language: node_js
 node_js:
-  - "4.1"
+- '4.1'
+deploy:
+  provider: heroku
+  api_key:
+    secure: SCjOGk0XV0iv+QpNnqbawW3wfLITs+aEn8i/jS+viUjkAafamR1rC/sUXQmUyyTC9gqoSYp9ns1Kjt5lB62NGugCUq6MFepLAlWqtaNsEfh1Bhb5MBFpqB68iKJsrxVwj9bIavnpzErMJ8TviG1OjuQL5Q8b+JiJMkyxncNgGzI2xCYXGuTYGIBiM2Dzy9SE/yl03TyOENUMw3uqRnEL2pTeR8hZXd+BXDzXHgcK2X62pqsUVqzhlXDcuQV/nQPU63J1OdnWkIML8fErLJKL2p7OHt69VYFaVB9kKDELln3DbOW4x5bk53d7sMJfuYLs2d8HK2gmLSxkLNeyBlJEASOoX/v+ozFRuMr81ThK1De2zds7i6t6XdicNrcin4L1Ha5jhKhj8XK+eFIHxzr+BYYSkIiaRjDPTwBKjiNqYA8c24Lv8kWYEdyzrBi/m/LmF1VCs0A4Bouv5wPQ5lYwnXwW/r+tzhlKgHE5YY9MPmysvZ3i2KKPfR0kPOnQkGUZJRz8hIt9C3pLFVE3MgMIBHK1WgPaXnoI/M2w3wHlHoiGZrslkNX8bgSLQp3lkzmLyewywldkof/CMEEtg0ABkbBLB9ftEDQPdM+pJVPpzPcL3ry2XRR28YiKVC9kZ2c8Aco2rTJ/0KOVmsruTRbf/DHhypHe9Kz7/o24OBe2fOc=
