@@ -30,7 +30,7 @@
     "speech": {
       "url": "https://www.google.com/speech-api/v2/recognize",
       "output" : "json",
-      "default_lang": "en-us"
+      "lang": "en-us"
     },
     "api_key": "<INSERT_YOUR_KEY_HERE>"
   },

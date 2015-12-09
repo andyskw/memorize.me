@@ -37,7 +37,7 @@ exports.startApplication = function (config, log) {
 
 function initApplication(config, app, router) {
     app.set('port', config.express.port);
-
+    app.use(express.static('public'));
     app.options("*", router);
     app.get("*", router);
     app.put("*", router);

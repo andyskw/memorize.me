@@ -19,12 +19,16 @@
   },
   "homepage": "https://github.com/andyskw/memorize.me#readme",
   "dependencies": {
+    "bluebird": "^3.0.6",
     "body-parser": "^1.14.1",
+    "busboy": "^0.2.12",
     "config": "^1.17.1",
     "express": "^4.13.3",
+    "google-speech-api": "^1.1.3",
     "lodash": "^3.10.1",
     "log4js": "^0.6.29",
-    "nodemailer": "^1.10.0"
+    "nodemailer": "^1.10.0",
+    "request": "^2.67.0"
   },
   "devDependencies": {
     "chai": "^3.4.1",

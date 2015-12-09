@@ -13,7 +13,7 @@
     "speech": {
       "url": "G_SPEECH_URL",
       "output": "G_SPEECH_OUTPUT",
-      "default_lang": "G_SPEECH_DEFAULT_LANG"
+      "lang": "G_SPEECH_DEFAULT_LANG"
     },
     "api_key": "G_API_KEY"
   },
