@@ -8,6 +8,7 @@ var BusBoy = require("busboy");
 var ResponseBuilder = require("../util/response-builder");
 var promise = require("bluebird");
 var speech = require('google-speech-api');
+var textHelper = require("../util/textHelper");
 
 
 let initApplication = (conf, l) => {
@@ -16,7 +17,8 @@ let initApplication = (conf, l) => {
 
     return {
         post: {
-            speechToText
+            speechToText,
+            textToText
         }
     };
 };
@@ -62,14 +64,6 @@ function downloadFileData(req) {
     busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
         var found = false;
         var ft = null;
-        /*
-         allowed_filetypes.forEach(function (filetype) {
-         if (!found && filename.indexOf("." + filetype, filename.length - filetype.length + 1) !== -1) {
-         found = true;
-         ft = filetype;
-         }
-         });
-         */
         return deferred.resolve({file: file, filename: filename});
 
     });
@@ -78,4 +72,12 @@ function downloadFileData(req) {
     });
     req.pipe(busboy);
     return deferred.promise;
-}
+};
+
+function textToText(req,res) {
+    var text = req.body.text.toLowerCase();
+    var start = req.body.startTrigger ? req.body.startTrigger : "david";
+    var end = req.body.endTrigger ? req.body.endTrigger : "thanks";
+    var todos = textHelper.getTodosFromText(text, start, end);
+    res.json({data: {todos: todos}});
+};

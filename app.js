@@ -24,6 +24,7 @@ exports.startApplication = function (config, log) {
     });
     app.post('/mail', mail.post.postEmail);
     app.post('/speech/text', speechApi.post.speechToText);
+    app.post('/text', speechApi.post.textToText);
 
     initApplication(config, app, router);
 
