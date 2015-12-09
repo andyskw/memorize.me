@@ -44,10 +44,11 @@ let speechToText = (req, res) => {
             }
         };
         file.pipe(request.post(reqOptions, function optionalCallback(err, httpResponse, body) {
-            //var b = JSON.parse(body);
+            var b = body.substr(14); //removing the first result...
+            b = cleanUpGoogleResponse(b);
             res.json({
                 status: 1,
-                data: body
+                data: JSON.parse(b)
             });
 
         }));
@@ -82,3 +83,17 @@ function textToText(req,res) {
     var todos = textHelper.getTodosFromText(text, start, end);
     res.json({status: 1, data: {todos: todos}});
 };
+
+function cleanUpGoogleResponse(response) {
+    var r = replaceAll(response, "\n", "");
+    while (r != r.replace("\\", "")) {
+        r = r.replace('\\', "");
+
+    };
+    return r;
+
+}
+
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
