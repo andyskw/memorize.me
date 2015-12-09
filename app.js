@@ -4,9 +4,11 @@ var express = require('express');
 var bodyparser = require("body-parser");
 
 var MailRoute = require('./routes/mail');
+var SpeechApiRoute = require('./routes/speech-api');
 
 exports.startApplication = function (config, log) {
     var mail = MailRoute(config,log);
+    var speechApi =  SpeechApiRoute(config, log);
     if (config == null) {
         throw new Error("Missing configuration, application cannot be started without config!");
     }
@@ -21,6 +23,7 @@ exports.startApplication = function (config, log) {
         res.send({status: 1});
     });
     app.post('/mail', mail.post.postEmail);
+    app.post('/speech/text', speechApi.post.speechToText);
 
     initApplication(config, app, router);
 
