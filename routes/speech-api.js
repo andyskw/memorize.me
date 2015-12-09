@@ -46,7 +46,7 @@ let speechToText = (req, res) => {
         file.pipe(request.post(reqOptions, function optionalCallback(err, httpResponse, body) {
             //var b = JSON.parse(body);
             res.json({
-                status: 1
+                status: 1,
                 data: body
             });
 
