@@ -25,11 +25,11 @@ postEmail = (req, res) => {
         if (err) {
             log.error("Error while sending email.");
             log.error(err);
-            res.send({status: 0});
+            res.json({status: 0});
         } else {
             log.info("E-mail sent.");
             log.debug(ok);
-            res.send({status: 1});
+            res.json({status: 1});
         }
 
     });

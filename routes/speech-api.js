@@ -45,7 +45,8 @@ let speechToText = (req, res) => {
         };
         file.pipe(request.post(reqOptions, function optionalCallback(err, httpResponse, body) {
             //var b = JSON.parse(body);
-            res.send({
+            res.json({
+                status: 1
                 data: body
             });
 
@@ -79,5 +80,5 @@ function textToText(req,res) {
     var start = req.body.startTrigger ? req.body.startTrigger : "david";
     var end = req.body.endTrigger ? req.body.endTrigger : "thanks";
     var todos = textHelper.getTodosFromText(text, start, end);
-    res.json({data: {todos: todos}});
+    res.json({status: 1, data: {todos: todos}});
 };
