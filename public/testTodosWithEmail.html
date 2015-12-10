@@ -1,0 +1,38 @@
+<html>
+<head>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script language="JavaScript">
+
+        function onClick() {
+            var text = $("#mytext").val();
+            var startTrigger = $("#name").val();
+            console.log(text);
+            $.ajax({
+                method: 'POST',
+                url: '/text',
+                contentType: 'application/json',
+                dataType: "json",
+                data: JSON.stringify({text: text, startTrigger: startTrigger}),
+                success: success
+            });
+
+            function success(data) {
+                    var todos = data.data.todos;
+                    $("#todos").empty();
+                    todos.forEach(function (todo) {
+                        $("#todos").append("<li>"+ todo + "</li>");
+                    });
+            }
+        }
+
+    </script>
+</head>
+
+<input type="text" id="name" />
+<textarea id="mytext"></textarea>
+<button id="send" onclick="onClick()">Get my Todos!</button>
+<ul id="todos">
+
+</ul>
+
+</html>
