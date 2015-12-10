@@ -52,6 +52,6 @@ var _getEmailTexts = (type, todos) => {
     "use strict";
     var br = type == 'html' ? "<br />" : '\n' ;
     var todoList = todos.join(`${br} - [ ] `);
-    var date = moment().format('h:mm MM.DD.YYYY');
+    var date = moment().format('HH:mm MM.DD.YYYY');
     return `Here is your meeting note created at ${date}.${br}${br}  [ ] ${todoList}`;
 };
