@@ -1,5 +1,5 @@
 var MailSender = require("../util/mailsender");
-
+var moment = require("moment");
 
 var config = null;
 var log = null;
@@ -17,7 +17,7 @@ postEmail = (req, res) => {
     var mailOptions = {
         from: config.nodemailer.from, // sender address
         to: email, // list of receivers
-        subject: 'Memo - Hackathon Demo 08/12/2015', // Subject line
+        subject: 'meeting note - ' + moment().format('MM/DD'), // Subject line
         text: _getEmailTexts('text', todos), // plaintext body
         html: _getEmailTexts('html', todos) // html body
     };
@@ -52,5 +52,6 @@ var _getEmailTexts = (type, todos) => {
     "use strict";
     var br = type == 'html' ? "<br />" : '\n' ;
     var todoList = todos.join(`${br} - [ ] `);
-    return `Todos for this meeting are: ${br} - [ ] ${todoList}`;
+    var date = moment().format('HH:mm MM.DD.YYYY');
+    return `Here is your meeting note created at ${date}.${br}${br}  [ ] ${todoList}`;
 };
