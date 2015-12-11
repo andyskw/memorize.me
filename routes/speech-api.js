@@ -44,6 +44,7 @@ let speechToText = (req, res) => {
         log.info("File pipe started");
         file.pipe(request.post(reqOptions, function optionalCallback(err, httpResponse, body) {
             log.info("response received from google");
+            log.debug("Body", body);
             if (err) {
                 log.error("Error while contacting google");
                 return res.json({status: 0, message: "GOOGLE_ERROR"});
@@ -74,10 +75,12 @@ let speechToText = (req, res) => {
                 return res.json({status: 0, message: "PARSE_ERROR"});
             }
 
-            res.json({
+            var resp = {
                 status: 1,
                 data: b
-            });
+            };
+            log.info("Sending response: " + JSON.stringify(resp));
+            res.json(resp);
 
         }));
     });
