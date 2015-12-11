@@ -41,16 +41,16 @@ let speechToText = (req, res) => {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7'
             }
         };
-        console.log("File pipe started");
+        log.info("File pipe started");
         file.pipe(request.post(reqOptions, function optionalCallback(err, httpResponse, body) {
-            console.log("response received from google");
+            log.info("response received from google");
             if (err) {
-                console.error("Error while contacting google");
+                log.error("Error while contacting google");
                 return res.json({status: 0, message: "GOOGLE_ERROR"});
             }
             if (body.charAt(0) === "<") {
-                console.error("Response from google:");
-                console.error(body);
+                log.error("Response from google:");
+                log.error(body);
                 return res.json({status: 0, message: "GOOGLE_ERROR_INVALID_RESP"});
             }
             var b = body.substr(14); //removing the first result...
@@ -58,9 +58,9 @@ let speechToText = (req, res) => {
             try {
                 b = JSON.parse(b);
             } catch (err) {
-                console.err("Error while parsing Google response.", err);
-                console.err("our resp to be parsed was:" + b);
-                console.err("Original response was: " + httpResponse);
+                log.error("Error while parsing Google response.", err);
+                log.error("our resp to be parsed was:" + b);
+                log.error("Original response was: " + httpResponse);
                 return res.json({status: 0, message: "PARSE_ERROR"});
             }
 
@@ -82,14 +82,14 @@ function downloadFileData(req) {
     var deferred = promise.defer();
     var files = [];
     busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-        console.log("File receive started - ish?");
+        log.info("File receive started - ish?");
         var found = false;
         var ft = null;
         return deferred.resolve({file: file, filename: filename});
 
     });
     busboy.on('finish', function () {
-        console.log("Busboy finish event");
+        log.info("Busboy finish event");
     });
     req.pipe(busboy);
     return deferred.promise;
