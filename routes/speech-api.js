@@ -9,6 +9,7 @@ var ResponseBuilder = require("../util/response-builder");
 var promise = require("bluebird");
 var speech = require('google-speech-api');
 var textHelper = require("../util/textHelper");
+var fs = require("fs");
 
 
 let initApplication = (conf, l) => {
@@ -32,7 +33,7 @@ let speechToText = (req, res) => {
     var api_key = config.google.api_key;
 
     downloadFileData(req).then((fileData) => {
-        var file = fileData.file;
+        var file = fs.createReadStream(fileData.file);
         var filename = fileData.filename;
         var reqOptions = {
             url: url + "?output=" + output + "&lang=" + lang + "&key=" + api_key,
@@ -97,10 +98,13 @@ function downloadFileData(req) {
     var files = [];
     busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
         log.info("File receive started - ish?");
+        var ws = fs.createWriteStream("./file.wav");
+        file.pipe(ws);
         var found = false;
         var ft = null;
-        return deferred.resolve({file: file, filename: filename});
-
+        ws.on('finish', function() {
+            return deferred.resolve({file: './file.wav', filename: filename});
+        });
     });
     busboy.on('finish', function () {
         log.info("Busboy finish event");
