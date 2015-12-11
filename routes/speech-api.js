@@ -60,7 +60,7 @@ let speechToText = (req, res) => {
                 log.info("It was longer than 14");
             } else {
                 log.info("It was quite short. Not cutting it, but mocking the response to workaround iOS bug.");
-                b = {"result" : [{"alternative" : []}]};
+                b = '{"result" : [{"alternative" : []}]}';
             }
 
 
