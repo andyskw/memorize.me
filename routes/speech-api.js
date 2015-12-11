@@ -59,7 +59,8 @@ let speechToText = (req, res) => {
                 var b = body.substr(14); //removing the first result...
                 log.info("It was longer than 14");
             } else {
-                log.info("It was quite short. Not cutting it.");
+                log.info("It was quite short. Not cutting it, but mocking the response to workaround iOS bug.");
+                b = {"result" : [{"alternative" : []}]};
             }
 
 
