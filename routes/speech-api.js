@@ -32,8 +32,6 @@ let speechToText = (req, res) => {
     var api_key = config.google.api_key;
 
     downloadFileData(req).then((fileData) => {
-        var opts = { filetype: 'mp3', key : api_key};
-
         var file = fileData.file;
         var filename = fileData.filename;
         var reqOptions = {
@@ -44,11 +42,29 @@ let speechToText = (req, res) => {
             }
         };
         file.pipe(request.post(reqOptions, function optionalCallback(err, httpResponse, body) {
+            if (err) {
+                console.error("Error while contacting google");
+                return res.json({status: 0, message: "GOOGLE_ERROR"});
+            }
+            if (body.charAt(0) === "<") {
+                console.error("Response from google:");
+                console.error(body);
+                return res.json({status: 0, message: "GOOGLE_ERROR_INVALID_RESP"});
+            }
             var b = body.substr(14); //removing the first result...
             b = cleanUpGoogleResponse(b);
+            try {
+                b = JSON.parse(b);
+            } catch (err) {
+                console.err("Error while parsing Google response.", err);
+                console.err("our resp to be parsed was:" + b);
+                console.err("Original response was: " + httpResponse);
+                return res.json({status: 0, message: "PARSE_ERROR"});
+            }
+
             res.json({
                 status: 1,
-                data: JSON.parse(b)
+                data: b
             });
 
         }));
@@ -76,7 +92,7 @@ function downloadFileData(req) {
     return deferred.promise;
 };
 
-function textToText(req,res) {
+function textToText(req, res) {
     var text = req.body.text.toLowerCase();
     var start = req.body.startTrigger ? req.body.startTrigger : "david";
     var end = req.body.endTrigger ? req.body.endTrigger : "thanks";
@@ -89,7 +105,8 @@ function cleanUpGoogleResponse(response) {
     while (r != r.replace("\\", "")) {
         r = r.replace('\\', "");
 
-    };
+    }
+    ;
     return r;
 
 }
