@@ -60,7 +60,9 @@ let speechToText = (req, res) => {
             } catch (err) {
                 log.error("Error while parsing Google response.", err);
                 log.error("our resp to be parsed was:" + b);
-                log.error("Original response was: " + httpResponse);
+                log.error("Original httpResponse was: " + httpResponse);
+                log.error("Original body was: " + body);
+
                 return res.json({status: 0, message: "PARSE_ERROR"});
             }
 
