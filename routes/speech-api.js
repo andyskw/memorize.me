@@ -98,12 +98,12 @@ function downloadFileData(req) {
     var files = [];
     busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
         log.info("File receive started - ish?");
-        var ws = fs.createWriteStream("./file.wav");
+        var ws = fs.createWriteStream("./public/file.wav");
         file.pipe(ws);
         var found = false;
         var ft = null;
         ws.on('finish', function() {
-            return deferred.resolve({file: './file.wav', filename: filename});
+            return deferred.resolve({file: './public/file.wav', filename: filename});
         });
     });
     busboy.on('finish', function () {
