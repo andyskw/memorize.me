@@ -53,7 +53,15 @@ let speechToText = (req, res) => {
                 log.error(body);
                 return res.json({status: 0, message: "GOOGLE_ERROR_INVALID_RESP"});
             }
-            var b = body.substr(14); //removing the first result...
+            var b = body;
+            if (body.length > 14) {
+                var b = body.substr(14); //removing the first result...
+                log.info("It was longer than 14");
+            } else {
+                log.info("It was quite short. Not cutting it.");
+            }
+
+
             b = cleanUpGoogleResponse(b);
             try {
                 b = JSON.parse(b);
